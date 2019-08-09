@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %} Results {% endblock %}
+
+{% block content %}
+	<main>
+		<div id="results-container" class="container">
+			{% if top %}	
+				<div class="row">
+					<div class="col-12 result-header-div">
+						<h3 class="result-header">Top Match</h3>
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					{% for item in top %}
+						<div class="photo-div col-12">
+							<a href="{{ url_for('stats', mlsnum=top[item].mlsnum)}}"><img class="img-fluid rounded" src="{{ top[item].photo }}"></a>
+							{% if top[item].price %}
+								<div class="price">{{ top[item].price }}</div>
+							{% endif %}
+							<div class="details">{{ top[item].string }}</div>
+						</div>
+					{% endfor %}	
+				</div>	
+				<br>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-12 result-header-div">
+						<h3 class="result-header">Next Best Matches</h3>
+						<hr>
+					</div>
+				</div>
+			{% endif %}	
+			{% if properties %}
+				<div class="row">	
+					{% for property in properties %}
+						<div class="photo-div col-auto">
+							<a href="{{ url_for('stats', mlsnum=properties[property].mlsnum)}}"><img class="img-fluid" src="{{ properties[property].photo }}"></a>
+							{% if properties[property].price %}
+								<div class="price">{{ properties[property].price }}</div>
+							{% endif %}
+							<div class="details">{{properties[property].string}}</div>
+						</div>			
+					{% endfor %}
+				</div>
+			{% else %}
+				<p> No properties </p>
+			{% endif %}
+		</div>
+	</main>
+{% endblock %}

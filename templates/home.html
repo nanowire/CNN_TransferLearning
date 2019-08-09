@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %} My Properties {% endblock %}
+
+<!-- this page would be for 'bookmarked' properties, for a future iteration -->
+{% block content %}
+	<main>
+		<div>
+			{% if properties %}
+				{% for property in properties %}
+					<li> {{ property.mlsnum }} </li>
+			{% else %}
+				<p>You do not currently have any properties bookmarked </p>
+			{% endif %}
+		</div>
+	</main>
+{% endblock %}

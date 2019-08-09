@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %} About {% endblock %}
+
+{% block content %}
+	<main>
+		<div class="container" id="search-container">
+			<div class="row" id="search-box">
+				<div class="col">
+					<h1>About our website</h1>
+						<p>
+							This application allows you to compare your property of interest to thousands of others simply by uploading a photo!
+						</p>
+					<h2>How do we compare "similarity" between two properties?</h2>
+						<article id="ANN">
+							<h3>Artificial Neural Networks</h3>
+								<p>We leverage one of the most significant recent development in computational sciences called the <b>Artifical Neural Networks</b>. An artificial neural network consists of an inter-connected layers (also called "perceptrons") of nodes (also called "neurons") whose structure and function are inspired by the biological neural network of an animal brain. However, it is important to note that artificial and biological neural networks share nothing in common except for the name and possibly the shape (see figure below).</p> 
+								<figure>
+									<img src="../static/img/ANN.png" alt="ANN" id="ann" class="center" style="width:400px;height:334px">
+									<figcaption>Biological (top) and Artificial (bottom) neural networks (courtesy of <a href="https://towardsdatascience.com/the-differences-between-artificial-and-biological-neural-networks-a8b46db828b7">Towards Data Science</a>)</figcaption>
+								</figure>
+								<p>Unlike a biological neural network, which processes chemical signals, an artificial neural network is a mathematical model that strives to optimize a set of parameters in order to predict an outcome with high accuracy given a set of features (variables). The optimization of parameters is achieved using an iterative approach called <b>Gradient Descent</b>, where successive forward-propagation and back-propagation helps the algorithm to "learn" the best pattern for predicting the response. Forward-propagation computes the parameters themselves, whereas back-propagation computes derivatives, or "directions" toward which the current parameter values should move.</p>
+								<p>In essence, an aritificial neural network model aims to output the most probable quantitative or categorical outcome given a set of features from the input, a process called <b>Supervised Learning</b> in machine learning.</p>    
+						</article>
+						<br>
+						<br>
+						<article id="CNN">
+							<h3>Convolutional Neural Networks</h3>
+							<p>The state-of-the-art tool in image recognition and computer vision is a branch of artificial neural networks called the <b>Convolutional Neural Networks (CNN)</b>. CNN is often used to classify images such as distinguiishing whether a given image contains a cat vs. a dog, for example. </p> 
+							<p>Unlike the usual feed-forward neural network (discussed in the previous section) where the input from one observation is an array, one input for CNN is a 2-dimensional grid (matrix) of pixel values from an image. In case the input is a colored image, one input actually consists of three 2-dimensional matrices where each matrix represents one of the three RGB color channels. For instance, if a colored image is 50 pixels x 50 pixels, this image will be represented as a 50 x 50 x 3 input "tensor" when it is processed by a CNN.</p>
+							<p>One of the best resources to learn the theory behind CNN is <a href="https://www.youtube.com/channel/UCcIXc5mJsHVYTZR1maL5l9w">Andrew Ng's deep learning lecture</a>. Here we will only briefly describe how CNN works. The figure below illustrates the architecture of a CNN called VGG16, the network used int his project:</p>
+							<figure>
+									<img src="../static/img/vgg16.png" alt="vgg16" id="vgg16" class="center" style="width:450px;height:253px">
+									<figcaption>Architecture of VGG16 convolutional neural network model (courtesy of <a href="https://neurohive.io/en/popular-networks/vgg16/">Neurohive</a>)</figcaption>
+							</figure>
+							<p>The most dominant structure of a typical CNN is a sequence of "convolution layers" and "pooling layers". This sequence is often followed by a thin section of fully-connected layers before the final prediction layer. Each convolutional layer is designed for the network to learn specific features of an image. For example, early convolutional layers may be set up to optimally detect simple shapes and colors like edges and corners, whereas later-stage convolutional layers are designed to detect higher-order structures like an eye or a tail. The final "convoled volume" from the last convolutional layer is flattened and fed into several fully-connected layers before the prediction node, where a softmax activation function computes the probabilities that the input image belongs to each of the categories of interest.</p>
+						</article>
+
+						<article id="transfer-learning">
+							<h3>Transfer Learning of Image Features using VGG16</h3>
+							<p>Historically researchers who are interested in a particular classification problem (e.g., distinguishing cat vs. dog vs. none in a given input image) will train their own CNN from scratch, trying out a diverse hyperparameter settings such as the number of filters to use in each convolutional layer, the learning rate, the number of convolutional layers to use before a pooling layer, etc. In recent years, due to an increasing number of well-performing CNN's, it is rare that any image classification task will start from scratch. Instead, the neural network community uses <b>Transfer Learning</b> where we adopt a pre-trained neural network and just make minor modification to one or a small number of layers to tailor the network for our own classification need. In this project, we uses a well-established CNN called <b>VGG16</b> (its architecture is shown in previous section), which was trained on 1000 categories using millions of images from <a href="http://www.image-net.org/">ImageNet</a>. Below is a schematic representation of the VGG16 layers:</p>
+							<figure>
+									<img src="../static/img/vgg16_2.png" alt="vgg16_2" id="vgg16_2" class="center" style="width:450px;height:111px">
+									<figcaption>VGG16 convolutional neural network schematic drawing (courtesy of <a href="https://neurohive.io/en/popular-networks/vgg16/">Neurohive</a>)</figcaption>
+							</figure>
+							<p>Given an input color image of 224px x 224px, the output from VGG16 is a list of 1000 probability values, each value represents the probability that the input image contains one of the 1000 classes used to train this network. In a classification setting, the input image is classified as the class for which the probability is highest.</p> 
+							<p>For our project, we are specifically interested in comparing the "similarity" between an input image and every property images stored in our database. This means we are conducting an <b>Unsupervised Learning</b> (in contrast to "classification", which belongs to supervised learning) since we do not have distinct class labels. To this end, we can modify the VGG16 network by removing the last fully-connected layers and the prediction layer (since we are not doing any prediction) and retain the rest of the network. Given an input image dimension of 224x224, the last convolutional/max pooling layer outputs a tensor of dimension 7x7x512. This tensor can be thought of as a "vector" in a high-dimensional Euclidean space. Different images will produce different such "vector".</p>
+						</article>
+
+						<article id="computing-similarity">
+							<h3>Computing "Similarity" Between Two Images</h3>
+							<p>As mentioned in the previous section, each property image can produce a unique 7x7x512 tensor that can be thought of as a "point" in a high-dimensioanl space. <u><b>When two images are similar, it is conceivable that their tensors will be similar, in other words, the "distance" between the two points will be small</b></u>. The computation of "distance" in a high-dimensional space is identical to that in a simple 2D space:
+							<ol>
+								<li>Take the difference between corresponding entries of the two vectors</li>
+								<li>Square all the differences from step 1</li>
+								<li>Sum up all the squared differences from step 2</li>
+								<li>Take the square root of the number obtained in step 3</li>
+							</ol>
+							In machine learning jargon the "distance" computed using the algorithm above is called the <b>L2 Norm</b>.</p>
+							<p>Comparing how similar an input image is to all property images stored in our database (~ 700,000 interior and exterior images) is then a simple matter of computing the L2 norm of the input image tensor to the tensor of every property image. The smallest L2 norm from a stored property image is regarded as the most similar property to the input image.</p>
+							<p>The numpy norm() function is used in this project to compute the L2 norm, because the function is able to accept high-dimensional input, as long as the input is in the form of a numpy ndarray.</p>
+							<p>The feature tensor from each of the property images was computed using VGG16 without the dense and prediction layers and stored as a nested python dictionary and subsequently converted into a string in order to be stored in our database.</p>
+							<p>At the time of computation, the feature vectors in our datase base are retrieved and converted back to numpy ndarray before its L2 norm with the input image is computed.</p>
+						</article>
+                </div>
+            </div>
+		</div>
+	</main>
+{% endblock %}

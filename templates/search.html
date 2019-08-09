@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %} Search {% endblock %}
+
+{% block content %}
+	<main>
+		<div class="container" id="search-container">
+			<div class="row" id="search-box">
+				<div class="col-12">
+					<h1>
+						Search
+					</h1>
+					<p>please upload an image</p>
+				</div>
+			</div>		
+			<div class="row">
+				<div class="col-6">
+					<form action="/results" method="POST" enctype="multipart/form-data">
+						<input class="photo-select" type="file" name="photo">
+						<input class="photo-submit" type="submit">
+					</form>
+                </div>
+            </div>
+		</div>
+	</main>
+{% endblock %}

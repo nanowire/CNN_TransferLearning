@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+	<body id="home-container" style="background-image:url({{url_for('static', filename='img/house_img_1.jpg')}});">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<!--citations for forms creation: Flask Mega Tutorial and Labs-->
+					<h1>Create an Account</h1>
+					<form method="POST" action="/register">
+				   
+				        {{ form.hidden_tag() }}
+
+				        <div class="form-entry">
+				            {{ form.first_name.label(class="label") }}
+
+				            {% if form.first_name.errors %}
+				                {% for error in form.first_name.errors %}
+				                <p class-="form-error-message">{{ error }}</p>
+				                {% endfor %}
+				            {% endif %}
+
+				            {{ form.first_name }}
+				        </div>
+				        <div class="form-entry">
+				            {{ form.last_name.label(class="label") }}
+
+				            {% if form.last_name.errors %}
+				                {% for error in form.v.errors %}
+				                <p class-="form-error-message">{{ error }}</p>
+				                {% endfor %}
+				            {% endif %}
+
+				            {{ form.last_name }}
+				        </div>
+				        <div class="form-entry">
+				            {{ form.username.label(class="label") }}
+
+				            {% if form.username.errors %}
+				                {% for error in form.username.errors %}
+				                <p class-="form-error-message">{{ error }}</p>
+				                {% endfor %}
+				            {% endif %}
+
+				            {{ form.username }}
+				        </div>
+				        <div class="form-entry">
+				            {{ form.password.label(class="label") }}
+
+				            {% if form.password.errors %}
+				                {% for error in form.password.errors %}
+				                <p class-="form-error-message">{{ error }}</p>
+				                {% endfor %}
+				            {% endif %}
+
+				            {{ form.password }}
+				        </div>
+				        <div class="form-entry">
+				            {{ form.password2.label(class="label") }}
+
+				            {% if form.password2.errors %}
+				                {% for error in form.password2.errors %}
+				                <p class-="form-error-message">{{ error }}</p>
+				                {% endfor %}
+				            {% endif %}
+
+				            {{ form.password2 }}
+				        </div>
+				        {{ form.submit(class="home-button enter")}}
+		    		</form> 
+		    	</div>
+			</div>		
+		</div>
+	</body>
+{% endblock %}

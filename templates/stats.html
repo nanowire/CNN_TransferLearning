@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %} Stats {% endblock %}
+
+{% block content %}
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-6">
+					<img class="img-fluid rounded" src="{{ stats.photo }}">
+				</div>
+				<div class="col-6">
+					{% if stats %}
+						{% if stats.sold %}
+							<p> SOLD </p>
+						{% else %}
+							<p>listed price: {{ stats.price }}</p>	
+							{% if stats.listdate %}
+								<p>date listed: {{stats.listdate }} </p>
+							{% endif %}	
+						{% endif %}
+						{% if stats.remarks %}
+							<p> {{ stats.remarks }} </p>
+						{% endif %}	
+						{% if stats.address %}
+							<p> {{ stats.address }} </p>
+						{% endif %}
+						{% if stats.string %}
+							<p> {{ stats.string }} </p>
+						{% endif %}
+						{% if stats.garage %}
+							<p>{{ stats.garage }} car garage</p>
+						{% endif %}
+						{% if stats.lotsize %}
+							<p>lotsize: {{ stats.lotsize }} sqft</p>
+						{% endif %}
+					{% else %}
+						<p>The is no information on that property</p>
+					{% endif %}
+				</div>
+			</div>
+				
+		</div>
+	</main>
+{% endblock %}

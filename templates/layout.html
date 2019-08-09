@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
+
+        
+        <!-- Link for Bootstrap cdn -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+        <!-- Link for CSS file -->
+        <link href="{{ url_for('static', filename='css/my_styles.css') }}" rel="stylesheet">
+
+        <!-- Link for Javascript file -->
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <title>{% block title %} {% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6" id="user-div">
+                        {% if current_user.is_authenticated %}
+                            You are currently logged in as {{ current_user.username }}
+                        {% else %}
+                            You are not currently logged in
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <div id="menu-div" class="menu">
+                            <button>
+                                <span id="menu-button" class="glyphicon glyphicon-menu-hamburger"></span>
+                            </button>
+                            {% if current_user.is_authenticated %}
+                                <div class="menu-content"> 
+                                    <a href="{{ url_for('index')}}"><span class="glyphicon glyphicon-home">  home</span></a>
+                                    <a href="{{ url_for('about')}}"><span class="glyphicon glyphicon-info-sign">  about</span></a>
+                                    <a href="{{ url_for('results')}}"><span class="glyphicon glyphicon-search">  search</span></a>
+                                    <a href="{{ url_for('logout')}}"><span class="glyphicon glyphicon-log-out">  logout</span></a>
+                                </div>
+                            {% else %}
+                                <div class="menu-content">  
+                                    <a href="{{ url_for('index')}}"><span class="glyphicon glyphicon-home">  home</span></a>
+                                    <a href="{{ url_for('about')}}"><span class="glyphicon glyphicon-info-sign">  about</span></a>
+                                    <a href="{{ url_for('login')}}"><span class="glyphicon glyphicon-log-in">  login</span></a>
+                                    <a href="{{ url_for('register')}}"><span class="glyphicon glyphicon-plus">  register</span></a>
+                                </div>
+                            {% endif %}    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}    
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}
+        {% endblock %}
+    
+  </body>
+</html>
