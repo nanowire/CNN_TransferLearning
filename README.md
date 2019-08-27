@@ -15,7 +15,7 @@ It is recommended that you run the IPython notebook under the Anaconda environme
 2. Current (as of August 2019) stable version of tensorflow does not support python 3.7, so we need to configure anaconda to run in python 3.6 environment, type in the anaconda terminal:<br/>
           >>> conda create -y --name tensorflow python=3.6
 
-3. To enter tensorflow environment, type in the anaconda terminal (for Windows):>br/>
+3. To enter tensorflow environment, type in the anaconda terminal (for Windows):<br/>
           >>> activate tensorflow <br/>
    (for OS, type: >>> source activate tensorflow)
 
