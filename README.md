@@ -5,7 +5,8 @@ softmax prediction layers are removed). The output tensor is a sparse matrix hav
 compared to ~ 700,000 property-image tensors stored in our databse for "similarity".
 
 <b>2. Running the App</b> <br/>
-To see the action of the app on the web, go to:  https://cnn-project-group3.herokuapp.com/index
+To see the action of the app on the web, go to:  https://cnn-project-group3.herokuapp.com/index <br/>
+Note: the url will take a bit of time to load, due to the fact that we are using a free version of heroku and that our app is a bit heavy on the back-end.
 
 <b>3. Jupyter Notebook</b> <br/>
 If you are interested in the underlying algorithm for computing the similarity tensor, data conversion of the output tensor for efficient database storage, reconstructing the (7, 7, 512) tensor after extracting it from the database, and computing the "similarity score" between an input image and any given image in the database, please take a look at the jupyter notebook file provided in the repo: cnn_vgg16.ipynb <br/>
