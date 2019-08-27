@@ -9,20 +9,20 @@ If you are interested in the underlying algorithm for computing the similarity t
 It is recommended that you run the IPython notebook under the Anaconda environment. Instructions for installing Anaconda and all necessary modules for Jupyter Notebook:
 1. Download and Install Anaconda environment (this includes installing python 3.7): https://www.anaconda.com/ 
 
-2. Current (as of August 2019) stable version of tensorflow does not support python 3.7, so we need to configure anaconda to run in python 3.6 environment, type in the anaconda terminal:
+2. Current (as of August 2019) stable version of tensorflow does not support python 3.7, so we need to configure anaconda to run in python 3.6 environment, type in the anaconda terminal:<br/>
           >>> conda create -y --name tensorflow python=3.6
 
-3. To enter tensorflow environment, type in the anaconda terminal (for Windows):
-          >>> activate tensorflow
+3. To enter tensorflow environment, type in the anaconda terminal (for Windows):>br/>
+          >>> activate tensorflow <br/>
    (for OS, type: >>> source activate tensorflow)
 
-4. Install Jupyter notebook:
+4. Install Jupyter notebook: <br/>
           >>> conda install -y jupyter
 
-5. To open jupyter notebook, type in the anaconda terminal:
+5. To open jupyter notebook, type in the anaconda terminal: <br/>
           >>> jupyter notebook
 
-6. Then in anaconda terminal, install the following modules needed for machine learning/deep learning:
+6. Then in anaconda terminal, install the following modules needed for machine learning/deep learning: <br/>
           >>> conda install -y scipy <br/>
           >>> pip install --exists-action i --upgrade sklearn <br/>
           >>> pip install --exists-action i --upgrade pandas <br/>
@@ -44,7 +44,7 @@ It is recommended that you run the IPython notebook under the Anaconda environme
           >>> pip install --exists-action i --upgrade keras-rl2 --user <br/>
           >>> conda update -y --all
 
-7. Finally, link tensorflow environment to jupyter so that we can run tensorflow under python 3.6; type in anaconda terminal:
+7. Finally, link tensorflow environment to jupyter so that we can run tensorflow under python 3.6; type in anaconda terminal: <br/>
           >>> python -m ipykernel install --user --name tensorflow --display-name "Python 3.6 (tensorflow)"
 
 <b>3. Running the App Locally</b> </br>
