@@ -54,9 +54,9 @@ If you are interested in seeing the app in action on your local machine, please 
   <li>Unzip the content into a directory in your local machine</li>
   <li>Create a python virtual environment in this directory:</li>
     <ul>
-      <li>In terminal, navigate to this directory, and type: py -m venv env</li>
-      <li>Activate this virtual environment by typing: env\Scripts\activate</li>
-      <li>Type: pip install requirements.txt</li>
+      <li>In terminal, navigate to this directory, and type: >>> py -m venv env</li>
+      <li>Activate this virtual environment by typing: >>> env\Scripts\activate</li>
+      <li>Type: >>> pip install requirements.txt</li>
     </ul>
-  <li>Run the app by typing (under the virtual env): python routes.py</li>
+  <li>Run the app by typing (under the virtual env): >>> python routes.py</li>
 </ul>
